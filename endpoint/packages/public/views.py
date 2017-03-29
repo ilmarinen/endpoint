@@ -9,8 +9,4 @@ bp = Blueprint('public_views', __name__, template_folder='templates')
 @bp.route('/')
 @no_cache
 def index():
-    if current_user.is_authenticated():
-        return render_template('public/app.html')
-    else:
-        return render_template('public/index.html', title='Welcome', app_name='Playback Server')
-
+    return render_template('public/index.html', title='Welcome', app_name='Endpoint Server')
