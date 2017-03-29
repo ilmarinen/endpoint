@@ -1,0 +1,10 @@
+opster
+Flask
+Flask-WTF
+Jinja2
+itsdangerous
+wsgiref
+Flask-SQLAlchemy
+alembic
+passlib
+Flask-Login
