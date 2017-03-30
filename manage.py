@@ -2,6 +2,17 @@ from opster import command, dispatch
 
 
 @command()
+def init_db():
+    from endpoint.main import app, init
+    from endpoint.database import db
+
+    init()
+
+    with app.app_context():
+        db.create_all()
+
+
+@command()
 def dev_server(port=('p', 8000, 'Port'),
                host=('h', '0.0.0.0', 'Host address')):
     from endpoint import app, init
@@ -16,4 +27,3 @@ def dev_server(port=('p', 8000, 'Port'),
 
 if __name__ == '__main__':
     dispatch()
-
