@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_user, logout_user, current_user
+from flask_admin.contrib import sqla
 import forms
 import manage
 
@@ -28,3 +29,9 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('user_views.login'))
+
+
+class AuthModelView(sqla.ModelView):
+
+    def is_accessible(self):
+        return current_user.is_authenticated
