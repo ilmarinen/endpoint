@@ -18,6 +18,9 @@ class User(db.Model):
     _password = db.Column(db.String(100))
     active = db.Column(db.Boolean, default=False, nullable=False)
 
+    def __repr__(self):
+        return self.username
+
     @property
     def password(self):
         return self._password
@@ -50,3 +53,6 @@ class Group(db.Model):
     description = db.Column(db.String(100))
 
     members = db.relationship('User', secondary=membership_table, backref='groups')
+
+    def __repr__(self):
+        return self.name

@@ -8,3 +8,4 @@ Flask-SQLAlchemy
 alembic
 passlib
 Flask-Login
+Flask-admin

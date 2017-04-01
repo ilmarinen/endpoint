@@ -1,5 +1,6 @@
-def init(app):
+def init(app, admin):
     import public
     import user
 
-    public.init(app)
+    public.init(app, admin)
+    user.init(app, admin)
