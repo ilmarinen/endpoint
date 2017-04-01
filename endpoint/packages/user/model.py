@@ -1,5 +1,6 @@
 from endpoint.database import db
 from crypto import hash_pass
+from flask_login import current_user
 
 
 membership_table = db.Table('group_members', db.Model.metadata,
