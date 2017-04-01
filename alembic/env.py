@@ -15,12 +15,10 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-try:
-    from endpoint.database import db
-    from endpoint.packages import *
-    target_metadata = db.Model.metadata
-except:
-    target_metadata = None
+from endpoint.database import db
+from endpoint import main
+main.init()
+target_metadata = db.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

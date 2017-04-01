@@ -3,14 +3,14 @@ from crypto import hash_pass
 from flask_login import current_user
 
 
-membership_table = db.Table('group_members', db.Model.metadata,
-                            db.Column('group_id', db.Integer, db.ForeignKey('groups.id')),
-                            db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+membership_table = db.Table("group_members", db.Model.metadata,
+                            db.Column("group_id", db.Integer, db.ForeignKey("groups.id")),
+                            db.Column("user_id", db.Integer, db.ForeignKey("users.id"))
                             )
 
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
@@ -47,13 +47,25 @@ class User(db.Model):
 
 
 class Group(db.Model):
-    __tablename__ = 'groups'
+    __tablename__ = "groups"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     description = db.Column(db.String(100))
 
-    members = db.relationship('User', secondary=membership_table, backref='groups')
+    members = db.relationship("User", secondary=membership_table, backref="groups")
 
     def __repr__(self):
         return self.name
+
+
+class Token(db.Model):
+    __tablename__ = "tokens"
+
+    id = db.Column(db.Integer, primary_key=True)
+    value = db.Column(db.String(100))
+    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    owner = db.relationship("User", backref="tokens")
+
+    def __repr__(self):
+        return "owner_user_id: {}, value: {}".format(self.owner.id, self.value)
