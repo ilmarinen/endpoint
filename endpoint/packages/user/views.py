@@ -19,7 +19,7 @@ def login():
         password = login_form.password.data
         user = manage.get_user_by_username(username)
         if manage.verify_user_password(user, password):
-            login_user(user, remember=True)
+            login_user(user)
             return redirect(url_for('public_views.index'))
 
     return render_template('user/login.html', form=login_form)

@@ -1,13 +1,37 @@
-from endpoint.lib.http import RESTView
+from endpoint.lib.http import RESTView, APIException
 from endpoint.lib import formatter
 from endpoint.packages.user import data_format
 from flask import Blueprint, request
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, login_user, logout_user
 import permissions
 import manage
 
 
 bp = Blueprint('user_rest_views', __name__, template_folder='templates')
+
+
+class AuthenticationUserAPI(RESTView):
+
+    def post(self):
+        if current_user.is_authenticated:
+            return True
+
+        data = request.get_json()
+        username = data.get("username")
+        password = data.get("password")
+        user = manage.get_user_by_username(username)
+        if manage.verify_user_password(user, password):
+            login_user(user)
+            return True
+
+        raise APIException(401, 'Invalid credentials')
+
+
+class LogoutUserAPI(RESTView):
+
+    def post(self):
+        logout_user()
+        return True
 
 
 class AuthenticatedUserAPI(RESTView):
@@ -36,5 +60,7 @@ class UsersAPI(RESTView):
 
 
 bp.add_url_rule('/v1/users/authenticated_user', view_func=AuthenticatedUserAPI.as_view('authenticated_user_api'))
+bp.add_url_rule('/v1/users/authenticate', view_func=AuthenticationUserAPI.as_view('authentication_user_api'))
+bp.add_url_rule('/v1/users/logout', view_func=LogoutUserAPI.as_view('logout_user_api'))
 bp.add_url_rule('/v1/users/<int:user_id>', view_func=UserModelAPI.as_view('user_model_api'))
 bp.add_url_rule('/v1/users/', view_func=UsersAPI.as_view('users_view'))
