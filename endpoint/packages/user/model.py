@@ -1,11 +1,12 @@
 from endpoint.database import db
 from crypto import hash_pass
 from flask_login import current_user
+import uuid
 
 
 membership_table = db.Table("group_members", db.Model.metadata,
-                            db.Column("group_id", db.Integer, db.ForeignKey("groups.id")),
-                            db.Column("user_id", db.Integer, db.ForeignKey("users.id"))
+                            db.Column("group_id", db.Integer, db.ForeignKey("groups.id"), nullable=False),
+                            db.Column("user_id", db.Integer, db.ForeignKey("users.id"), nullable=False)
                             )
 
 
@@ -50,7 +51,7 @@ class Group(db.Model):
     __tablename__ = "groups"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
+    name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(100))
 
     members = db.relationship("User", secondary=membership_table, backref="groups")
@@ -63,9 +64,16 @@ class Token(db.Model):
     __tablename__ = "tokens"
 
     id = db.Column(db.Integer, primary_key=True)
-    value = db.Column(db.String(100))
-    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    _value = db.Column(db.String(100), nullable=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     owner = db.relationship("User", backref="tokens")
 
+    def __init__(self):
+        self._value = str(uuid.uuid4())
+
+    @property
+    def value(self):
+        return self._value
+
     def __repr__(self):
-        return "owner_user_id: {}, value: {}".format(self.owner.id, self.value)
+        return self._value
