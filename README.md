@@ -1,34 +1,38 @@
 # Endpoint
-## Installation
+## About
+
+## Introduction
+
+### Installation
 ```
 pip install -r requirements.txt
 python setup.py develop
 ```
 
-## Initialize Database
+### Initialize Database
 ```
 python manage.py init-db
 alembic upgrade head
 ```
-## Create Users
+#### Create Users
 ```
 python manage.py add-user --username admin --password 1234
 python manage.py add-user --username joe --password 1234
 ```
 
-## Create Groups
+#### Create Groups
 ```
 python manage.py add-group --groupname admin
 python manage.py add-group --groupname users
 ```
 
-## Add Users to Groups
+#### Add Users to Groups
 ```
 python manage.py add-group-member --groupname admin --membername admin
 python manage.py add-group-member --groupname users --membername joe
 ```
 
-## Run the Development Server
+### Run the Development Server
 ```
 python manage.py dev-server
 ```
