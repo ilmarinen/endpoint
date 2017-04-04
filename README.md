@@ -1,5 +1,6 @@
 # Endpoint
 ## About
+Endpoint is a barebones web server with a few dynamic templated pages and RESTful routes. It has basic user / group permissions implemented, and a token system for securely providing an endpoint for remote services to call. This is a very extensibe project which is also easily deployable.
 
 ## Introduction
 
