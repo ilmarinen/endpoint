@@ -3,7 +3,7 @@ from model import User, Group, Token
 from views import bp
 from rest import bp as rest_bp
 from endpoint.database import db
-from views import AuthModelView
+from admin_views import AuthModelView, AdminUserView, AdminGroupView, AdminTokenView
 
 
 login_manager = LoginManager()
@@ -11,9 +11,9 @@ login_manager = LoginManager()
 
 def init(app, admin):
     login_manager.init_app(app)
-    admin.add_view(AuthModelView(User, db.session))
-    admin.add_view(AuthModelView(Group, db.session))
-    admin.add_view(AuthModelView(Token, db.session))
+    admin.add_view(AdminUserView(User, db.session))
+    admin.add_view(AdminGroupView(Group, db.session))
+    admin.add_view(AdminTokenView(Token, db.session))
     app.register_blueprint(bp, url_prefix='/user')
     app.register_blueprint(rest_bp, url_prefix='/api')
 
