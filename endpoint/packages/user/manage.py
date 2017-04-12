@@ -1,4 +1,4 @@
-from model import User
+from model import User, Token
 import crypto
 
 
@@ -27,3 +27,11 @@ def user_in_group(user, group_name):
 
 def list_users(limit, offset):
     return User.query.limit(limit).offset(offset).all()
+
+
+def get_token_by_value(value):
+    token = Token.query.filter(Token.value == value).first()
+    if not token:
+        return False
+
+    return token
