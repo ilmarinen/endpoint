@@ -1,4 +1,5 @@
 import manage
+import uuid
 from flask_login import login_user, logout_user, current_user
 from flask_admin import BaseView, expose
 from flask_admin.contrib import sqla
@@ -25,3 +26,4 @@ class AdminGroupView(AuthModelView):
 
 class AdminTokenView(AuthModelView):
     column_exclude_list = []
+    form_args = dict(value=dict(default=str(uuid.uuid4())))
