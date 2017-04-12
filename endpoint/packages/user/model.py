@@ -54,7 +54,8 @@ class Group(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(100))
 
-    members = db.relationship("User", secondary=membership_table, backref="groups")
+    members = db.relationship("User", secondary=membership_table,
+                              backref="groups")
 
     def __repr__(self):
         return self.name
@@ -64,16 +65,12 @@ class Token(db.Model):
     __tablename__ = "tokens"
 
     id = db.Column(db.Integer, primary_key=True)
-    _value = db.Column(db.String(100), nullable=True)
+    value = db.Column(db.String(100), nullable=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     owner = db.relationship("User", backref="tokens")
 
     def __init__(self):
-        self._value = str(uuid.uuid4())
-
-    @property
-    def value(self):
-        return self._value
+        self.value = str(uuid.uuid4())
 
     def __repr__(self):
-        return self._value
+        return self.value
