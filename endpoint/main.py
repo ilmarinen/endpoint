@@ -7,10 +7,11 @@ import packages
 
 
 app = Flask(__name__)
-admin = Admin(app, name='endpoint', template_mode='bootstrap3')
+admin = Admin(app, name="endpoint", template_mode="bootstrap3")
 
 
 def init():
-    app.config.from_object('endpoint.default_config')
+    app.config.from_object("endpoint.default_config")
+    app.config.from_pyfile("endpoint.cfg", silent=True)
     init_db(app)
     packages.init(app, admin)

@@ -9,3 +9,4 @@ alembic
 passlib
 Flask-Login
 Flask-admin
+git+https://github.com/ilmarinen/mediawiki.git@v5#egg=mediawiki
