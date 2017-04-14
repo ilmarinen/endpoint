@@ -65,3 +65,18 @@ It can be used to downgrade by:
 ```
 $ alembic downgrade -1
 ```
+
+## Deployment
+
+The tightest way to deploy this is as a WSGI application with NGINX proxying the web requests to the WSGI application. The obvious choice for running the WSGI application is uWSGI (which is included in the requirements.txt as a dependency). The setup is very simple.
+
+1. Create a user `endpoint` with home folder `/home/endpoint`
+2. Clone the repo into `/home/endpoint/endpoint`
+3. Initialize the database and setup the admin user and groups. Setup any additional users and groups you may need.
+4. Copy the file `wsgi/systemd-unit/endpoint.service` to `/etc/systemd/system/endpoint.service`
+5. Copy the file `wsgi/nginx-config/endpoint-site` to `/etc/nginx/sites-available/endpoint-site`
+6. Chown the repo so that the user `www-data` can read and write to it: `chown -R www-data:www-data /home/endpoint/endpoint`
+7. Change the variable `server_name your.hostname.com` to whatever hostname you want the server to run on.
+8. Create a symlink to activate the configuration `ln -s /etc/nginx/sites-available/endpoint-site /etc/nginx/sites-enabled/endpoint-site`
+9. Start the endpoint service `sudo service endpoint start`
+10 Reload the Nginx config `sudo service nginx reload`
