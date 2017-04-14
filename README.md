@@ -81,4 +81,4 @@ The tightest way to deploy this is as a WSGI application with NGINX proxying the
 9. Change the variable `server_name your.hostname.com` to whatever hostname you want the server to run on.
 10. Create a symlink to activate the configuration `ln -s /etc/nginx/sites-available/endpoint-site /etc/nginx/sites-enabled/endpoint-site`
 11. Start the endpoint service `sudo service endpoint start`
-12 Reload the Nginx config `sudo service nginx reload`
+12. Reload the Nginx config `sudo service nginx reload`
