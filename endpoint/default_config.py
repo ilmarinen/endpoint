@@ -1,3 +1,4 @@
+# how was sqlite installed? brew install sqlite
 SQLALCHEMY_DATABASE_URI = 'sqlite:///endpointserver.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = '1234567'

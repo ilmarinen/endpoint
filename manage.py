@@ -1,5 +1,10 @@
 from opster import command, dispatch
 
+# This file is a script for running commands
+# it's a wrapper around functionality
+# that instantiates an app, starts a db session
+# and peforms a db operation or
+# starts the server
 
 @command()
 def init_db():
