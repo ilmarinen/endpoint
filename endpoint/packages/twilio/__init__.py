@@ -2,7 +2,7 @@ from views import bp
 from link_archiver import mediawiki_bot
 
 
-def init(app, admin):
+def init(app):
     app.register_blueprint(bp, url_prefix='/twilio')
     mediawiki_bot.init(
         app.config["WIKI_URL"],

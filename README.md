@@ -83,3 +83,15 @@ The tightest way to deploy this is as a WSGI application with NGINX proxying the
 11. Create a symlink to activate the configuration `ln -s /etc/nginx/sites-available/endpoint-site /etc/nginx/sites-enabled/endpoint-site`
 12. Start the endpoint service `sudo service endpoint start`
 13. Reload the Nginx config `sudo service nginx reload`
+
+## Configuration
+
+Here is an example `endpoint.cfg` file:
+
+```
+WIKI_URL = "http://wiki.zay.io"
+WIKI_USERNAME = "wiki-user"
+WIKI_PASSWORD = "wiki-user-password"
+WIKI_PAGE = "Intelligent_News_Links"
+DATASTORE = "sqlite"
+```

@@ -1,5 +1,5 @@
-from endpoint.database import db
-from crypto import hash_pass
+from database import db
+from endpoint.lib import crypto
 from flask_login import current_user
 import uuid
 
@@ -30,7 +30,7 @@ class User(db.Model):
     @password.setter
     def password(self, password_string):
         if password_string:
-            self._password = hash_pass(password_string)
+            self._password = crypto.hash_pass(password_string)
         else:
             self._password = None
 

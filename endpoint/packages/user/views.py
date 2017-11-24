@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_user, logout_user, current_user
-from flask_admin.contrib import sqla
 import forms
-import manage
+from endpoint.data_backends import DataLayer
 
 
 bp = Blueprint('user_views', __name__, template_folder='templates')
@@ -17,8 +16,8 @@ def login():
     elif login_form.validate_on_submit():
         username = login_form.username.data
         password = login_form.password.data
-        user = manage.get_user_by_username(username)
-        if manage.verify_user_password(user, password):
+        user = DataLayer.get_user_by_username(username)
+        if user and DataLayer.verify_user_password(user, password):
             login_user(user)
             return redirect(url_for('public_views.index'))
 

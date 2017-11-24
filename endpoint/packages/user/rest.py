@@ -46,7 +46,7 @@ class UserModelAPI(RESTView):
     @permissions.can_view_user
     def get(self, user_id):
         user = manage.get_user_by_id(user_id)
-        return formatter.make(current_user, data_format.user_format)
+        return formatter.make(user, data_format.user_format)
 
 
 class UsersAPI(RESTView):

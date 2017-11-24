@@ -1,8 +1,8 @@
-def init(app, admin):
+def init(app):
     import public
     import user
     import twilio
 
-    public.init(app, admin)
-    user.init(app, admin)
-    twilio.init(app, admin)
+    public.init(app)
+    user.init(app)
+    twilio.init(app)
