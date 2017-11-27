@@ -1,0 +1,13 @@
+opster
+Flask
+Flask-WTF
+Jinja2
+itsdangerous
+wsgiref
+passlib
+mongoengine
+flask_mongoengine
+Flask-Login
+Flask-admin
+uwsgi
+git+https://github.com/ilmarinen/mediawiki.git@v6#egg=mediawiki

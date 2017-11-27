@@ -1,7 +1,7 @@
-from database import db
-from endpoint.lib import crypto
-from flask_login import current_user
 import uuid
+from database import db
+from endpoint.data_backends import mixins
+from flask_login import current_user
 
 
 membership_table = db.Table("group_members", db.Model.metadata,
@@ -10,7 +10,7 @@ membership_table = db.Table("group_members", db.Model.metadata,
                             )
 
 
-class User(db.Model):
+class User(mixins.UserMixin, db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -20,34 +20,8 @@ class User(db.Model):
     _password = db.Column(db.String(100))
     active = db.Column(db.Boolean, default=False, nullable=False)
 
-    def __repr__(self):
-        return self.username
 
-    @property
-    def password(self):
-        return self._password
-
-    @password.setter
-    def password(self, password_string):
-        if password_string:
-            self._password = crypto.hash_pass(password_string)
-        else:
-            self._password = None
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return self.active
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return unicode(self.id)
-
-
-class Group(db.Model):
+class Group(mixins.GroupMixin, db.Model):
     __tablename__ = "groups"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -57,11 +31,8 @@ class Group(db.Model):
     members = db.relationship("User", secondary=membership_table,
                               backref="groups")
 
-    def __repr__(self):
-        return self.name
 
-
-class Token(db.Model):
+class Token(mixins.TokenMixin, db.Model):
     __tablename__ = "tokens"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -70,7 +41,5 @@ class Token(db.Model):
     owner = db.relationship("User", backref="tokens")
 
     def __init__(self):
-        self.value = str(uuid.uuid4())
 
-    def __repr__(self):
-        return self.value
+        self.value = str(uuid.uuid4())
