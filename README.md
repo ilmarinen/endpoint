@@ -5,9 +5,23 @@ Endpoint is a barebones web server with a few dynamic templated pages and RESTfu
 ## Introduction
 
 ### Installation
+
+#### Copy Requirements
+First copy the appropriate requirements file (`requirements/requirements-sqlite.txt` or `requirements/requirements-mongodb.txt`) from the requirements folder to `requirements.txt` in the root folder.
+
+#### Copy Configuration
+
+Also copy the appropriate config files (`configs/endpoint-sqlite.cfg` or `configs/endpoint-mongodb.cfg`) to `endpoint/endpoint.cfg`. Then do the following:
+
+
+#### Begin Installation
+
 ```
 pip install -r requirements.txt
 python setup.py develop
+npm install
+npm install -g webpack
+webpack -d
 ```
 
 ### Initialize Database
@@ -39,6 +53,13 @@ python manage.py dev-server
 ```
 
 Then point your browser to port 8000 on the machine where the server is running.
+
+If you want to run the development server in SSL mode, you will need to run it as root with the command:
+```
+python manage.py dev-server --enable-ssl
+```
+
+Then point your browser to `https://<your-ip-or-hostname>`
 
 ## Architecture
 

@@ -15,7 +15,11 @@ def init_db():
 
 @command()
 def dev_server(port=('p', 8000, 'Port'),
-               host=('h', '0.0.0.0', 'Host address')):
+               host=('h', '0.0.0.0', 'Host address'),
+               enable_ssl=('', False, 'Enable SSL'),
+               private_key=('', 'ssl-certs-insecure/private.pem', 'Private keyfile'),
+               public_key=('', 'ssl-certs-insecure/certificate.crt', 'Public keyfile')):
+
     from endpoint import app, init
     from endpoint.lib import http
 
@@ -23,7 +27,14 @@ def dev_server(port=('p', 8000, 'Port'),
 
     http.expose_static_files(app)
     app.debug = True
-    app.run(host=host, port=port)
+
+    if enable_ssl:
+        import ssl
+        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        context.load_cert_chain(public_key, private_key)
+        app.run(host=host, port=443, ssl_context=context)
+    else:
+        app.run(host=host, port=port)
 
 
 @command()

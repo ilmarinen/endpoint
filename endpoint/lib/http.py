@@ -23,7 +23,7 @@ class APIException(HTTPException):
 
 
 def expose_static_files(app):
-    base_folder = ospath.abspath(ospath.join(ospath.dirname(__file__), '../../../../client/public/'))
+    base_folder = ospath.abspath(ospath.join(ospath.dirname(__file__), '../../client/build/'))
 
     @app.route('/public/<path:path>')
     def send_static_files(path):
