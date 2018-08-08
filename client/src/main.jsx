@@ -191,6 +191,7 @@ class App extends React.Component {
       xhttp.open("GET", "api/v1/event/", true);
       xhttp.send();
       console.log(xhttp.responseText);
+      this.startPollingEvent();
     }, 500);
   }
 
