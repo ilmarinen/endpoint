@@ -2,6 +2,13 @@ import React from 'react';
 import {render} from 'react-dom';
 
 
+var slug = "test";
+
+window.setSlug = function(slugValue) {
+  slug = slugValue;
+}
+
+
 class VideoBox extends React.Component {
 
   componentDidMount () {
@@ -178,6 +185,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
+      <div>The slug is: {slug}</div>
         <div id="geolocation">
           <h1>Where are you?</h1>
           <div id="mapIt">
