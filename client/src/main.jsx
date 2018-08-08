@@ -8,6 +8,9 @@ window.setSlug = function(slugValue) {
   slug = slugValue;
 }
 
+window.getSlug = function() {
+  return slug;
+};
 
 class VideoBox extends React.Component {
 
@@ -185,7 +188,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-      <div>The slug is: {slug}</div>
+      <div>The slug is: {getSlug()}</div>
         <div id="geolocation">
           <h1>Where are you?</h1>
           <div id="mapIt">
