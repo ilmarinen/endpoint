@@ -8,7 +8,6 @@ bp = Blueprint('user_rest_views', __name__, template_folder='templates')
 
 class WebEventAPI(RESTView):
 
-    @permissions.can_list_users
     def get(self, **kwargs):
         return True
 
