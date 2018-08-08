@@ -4,6 +4,8 @@ const uuidv4 = require('uuid/v4');
 
 
 const visitorSlug = uuidv4();
+const xhttp = new XMLHttpRequest();
+
 
 class VideoBox extends React.Component {
 
@@ -144,6 +146,12 @@ class App extends React.Component {
     this.setState({
       locationMessage: message
     });
+
+    this.startPollingEvent();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
   }
 
   geoLocationEnabled() {
@@ -176,6 +184,14 @@ class App extends React.Component {
   geoFindMe () {
     console.log("geoFindMe");
     navigator.geolocation.getCurrentPosition(this.showPosition.bind(this), this.showError.bind(this));
+  }
+
+  startPollingEvent () {
+    this.timeout = setTimeout(() => {
+      xhttp.open("GET", "api/v1/event/", true);
+      xhttp.send();
+      console.log(http.responseText);
+    }, 500);
   }
 
   render () {
