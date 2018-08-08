@@ -1,9 +1,13 @@
 server {
     listen 80;
-    server_name your.hostname.com;
+    server_name _;
 
     location / {
         include uwsgi_params;
         uwsgi_pass unix:/home/endpoint/endpoint/wsgi/endpoint.sock;
+    }
+
+    location /public {
+        alias /home/endpoint/endpoint/client/build/;
     }
 }
