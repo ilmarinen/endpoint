@@ -63,6 +63,9 @@ Nginx) into Elasticsearch and index the `url` field.
 
 This allowed me to run queries and make visualizations in Kibana.
 
+I tested it from Google Chrome on my Mac and from Safari on my iOS phone. It was able to log
+events from both use cases.
+
 
 Deployment
 -----------
@@ -175,3 +178,23 @@ unique advantages. The biggest of which is the ability to use Caching to scale, 
 the events in question.
 
 I was very lax with security, mostly so that it would be easy for me to get everything working together.
+
+Ideally, the communication between Logstash and Elasticsearch and Elasticsearch and Kibana should be taking
+place over SSL. And both Elasticsearch and Kibana should have some access controls enabled.
+
+I believe that the application server does have some built in CSRF protection built in.
+
+
+Improvements
+-------------
+
+1. Using websockets connection to log the events used to measure the users dwell time. This would open up
+   the possibility of sending richer real time events, e.g. which part of the screen is the users mouse
+   on etc.
+
+2. Application level logging while still preserving scalability, and without loss of logging ability.
+   This would allow for an application that was intelligently reactive to home it was bing used, based
+   on its own analytics monitoring.
+
+3. Deployment scripts. I wish I had been able to write some Ansible deployment scripts so that someone
+   else could easily use them to provision a deployment.
