@@ -3,7 +3,7 @@ from flask import Blueprint, request
 import manage
 
 
-bp = Blueprint('user_rest_views', __name__, template_folder='templates')
+bp = Blueprint('webevent_rest_views', __name__, template_folder='templates')
 
 
 class WebEventAPI(RESTView):
