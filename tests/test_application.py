@@ -3,19 +3,19 @@ import tempfile
 
 import pytest
 
-from flaskr import flaskr
+from flask import flask
 
 
 @pytest.fixture
 def client():
-    db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
-    flaskr.app.config['TESTING'] = True
-    client = flaskr.app.test_client()
+    db_fd, flask.app.config['DATABASE'] = tempfile.mkstemp()
+    flask.app.config['TESTING'] = True
+    client = flask.app.test_client()
 
-    with flaskr.app.app_context():
-        flaskr.init_db()
+    with flask.app.app_context():
+        flask.init_db()
 
     yield client
 
     os.close(db_fd)
-    os.unlink(flaskr.app.config['DATABASE'])
+    os.unlink(flask.app.config['DATABASE'])
