@@ -188,7 +188,7 @@ class App extends React.Component {
 
   startPollingEvent () {
     this.timeout = setTimeout(() => {
-      xhttp.open("GET", "api/v1/event/" + slug, true);
+      xhttp.open("GET", "api/v1/event/" + visitorSlug, true);
       xhttp.send();
       console.log(xhttp.responseText);
       this.startPollingEvent();
