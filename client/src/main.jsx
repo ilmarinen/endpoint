@@ -10,6 +10,11 @@ const xhttp = new XMLHttpRequest();
 class InformativeButton extends React.Component {
 
   componentDidMount () {
+
+    var x = new XMLHttpRequest();
+    x.open("GET", "api/v1/event/initial/" + visitorSlug, true);
+    x.send();
+
     informtiveButton.addEventListener('click', function(ev){
       console.log("Interesting!");
       var xhr = new XMLHttpRequest();
