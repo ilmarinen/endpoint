@@ -58,11 +58,11 @@ class App extends React.Component {
       <div>
         <p>
           <b>Malaysia Airlines Flight 370</b> was a scheduled international passenger flight operated by
-          <a href="/wiki/Malaysia_Airlines" title="Malaysia Airlines">Malaysia Airlines</a>that disappeared on 8 March 2014 while flying from
-          <a href="/wiki/Kuala_Lumpur_International_Airport" title="Kuala Lumpur International Airport">Kuala Lumpur International Airport</a>,
-          Malaysia, to its destination, <a href="/wiki/Beijing_Capital_International_Airport" title="Beijing Capital International Airport">Beijing Capital International Airport</a>
+          <a href="http://en.wikipedia.org/wiki/Malaysia_Airlines" title="Malaysia Airlines">Malaysia Airlines</a>that disappeared on 8 March 2014 while flying from
+          <a href="http://en.wikipedia.org/wiki/Kuala_Lumpur_International_Airport" title="Kuala Lumpur International Airport">Kuala Lumpur International Airport</a>,
+          Malaysia, to its destination, <a href="http://en.wikipedia.org/wiki/Beijing_Capital_International_Airport" title="Beijing Capital International Airport">Beijing Capital International Airport</a>
           in China. Commonly referred to as "MH370", "Flight 370" or "Flight MH370", the flight was also marketed as
-          <a href="/wiki/China_Southern_Airlines" title="China Southern Airlines">China Southern Airlines</a>
+          <a href="http://en.wikipedia.org/wiki/China_Southern_Airlines" title="China Southern Airlines">China Southern Airlines</a>
           Flight 748 (CZ748/CSN748) through a <a href="/wiki/Codeshare_agreement" title="Codeshare agreement">codeshare</a>,
           The crew of the <a href="/wiki/Boeing_777" title="Boeing 777">Boeing 777-200ER</a> aircraft last made contact with
           <a href="/wiki/Air_traffic_control" title="Air traffic control">air traffic control</a> around 38 minutes after takeoff
