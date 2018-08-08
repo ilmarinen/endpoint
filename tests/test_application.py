@@ -6,9 +6,14 @@ from endpoint import main
 
 class MyTest(LiveServerTestCase):
 
-    def create_app(self):
+    @classmethod
+    def setUpClass(cls):
         main.init()
-        return main.app
+        cls.app = main.app
+
+
+    def create_app(self):
+        return self.app
 
     def test_main_route(self):
         # Test that the main route of the app that serves
