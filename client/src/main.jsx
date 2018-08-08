@@ -190,7 +190,7 @@ class App extends React.Component {
     this.timeout = setTimeout(() => {
       xhttp.open("GET", "api/v1/event/", true);
       xhttp.send();
-      console.log(http.responseText);
+      console.log(xhttp.responseText);
     }, 500);
   }
 
