@@ -19,4 +19,4 @@ class InformativeWebEventAPI(RESTView):
 
 
 bp.add_url_rule('/v1/event/<string:visitor_slug>', view_func=WebEventAPI.as_view('webevent_view'))
-bp.add_url_rule('/v1/event/informative/<string:visitor_slug>', view_func=InfiormativeWebEventAPI.as_view('informative_webevent_view'))
+bp.add_url_rule('/v1/event/informative/<string:visitor_slug>', view_func=InformativeWebEventAPI.as_view('informative_webevent_view'))
