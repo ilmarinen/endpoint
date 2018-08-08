@@ -15,3 +15,5 @@ werkzeug
 markupsafe
 click
 sqlalchemy
+Flask-Testing
+pytest
