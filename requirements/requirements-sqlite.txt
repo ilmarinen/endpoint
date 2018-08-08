@@ -11,3 +11,7 @@ Flask-Login
 Flask-admin
 uwsgi
 git+https://github.com/ilmarinen/mediawiki.git@v6#egg=mediawiki
+werkzeug
+markupsafe
+click
+sqlalchemy
