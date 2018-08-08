@@ -8,6 +8,11 @@ bp = Blueprint('public_views', __name__, template_folder='templates')
 
 @bp.route('/')
 @no_cache
-@login_required
 def index():
     return render_template('public/index.html', title='Welcome', app_name='Endpoint Server')
+
+
+@bp.route('/latest_plane_crash')
+@no_cache
+def index():
+    return render_template('public/latest_plane_crash.html', title='Latest Plane Crash', app_name='Endpoint Server')

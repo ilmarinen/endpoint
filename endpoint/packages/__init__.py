@@ -6,5 +6,4 @@ def init(app):
 
     public.init(app)
     user.init(app)
-    twilio.init(app)
     webevent.init(app)

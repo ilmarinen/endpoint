@@ -102,7 +102,7 @@ The tightest way to deploy this is as a WSGI application with NGINX proxying the
 9. Chown the repo so that the user `www-data` can read and write to it: `chown -R www-data:www-data /home/endpoint/endpoint`
 10. Change the variable `server_name your.hostname.com` to whatever hostname you want the server to run on.
 11. Create a symlink to activate the configuration `ln -s /etc/nginx/sites-available/endpoint-site /etc/nginx/sites-enabled/endpoint-site`
-12. Start the endpoint service `sudo service endpoint start`
+12. Start the endpoint service `sudo service endpoint start` (you may need to do `sudo systemctl start endpoint.service`)
 13. Reload the Nginx config `sudo service nginx reload`
 
 ## Configuration
