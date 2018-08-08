@@ -98,21 +98,11 @@ The tightest way to deploy this is as a WSGI application with NGINX proxying the
 5. Initialize the database and setup the admin user and groups. Setup any additional users and groups you may need.
 6. Copy the file `wsgi/systemd-unit/endpoint.service` to `/etc/systemd/system/endpoint.service`
 7. Copy the file `wsgi/nginx-config/endpoint-site` to `/etc/nginx/sites-available/endpoint-site`
-8. Add a config file `endpoint.cfg` under `/home/endpoint/endpoint/endpoint` and declare values there to override values in the default config.
-9. Chown the repo so that the user `www-data` can read and write to it: `chown -R www-data:www-data /home/endpoint/endpoint`
-10. Change the variable `server_name your.hostname.com` to whatever hostname you want the server to run on.
-11. Create a symlink to activate the configuration `ln -s /etc/nginx/sites-available/endpoint-site /etc/nginx/sites-enabled/endpoint-site`
-12. Start the endpoint service `sudo service endpoint start` (you may need to do `sudo systemctl start endpoint.service`)
-13. Reload the Nginx config `sudo service nginx reload`
-
-## Configuration
-
-Here is an example `endpoint.cfg` file:
-
-```
-WIKI_URL = "http://wiki.zay.io"
-WIKI_USERNAME = "wiki-user"
-WIKI_PASSWORD = "wiki-user-password"
-WIKI_PAGE = "Intelligent_News_Links"
-DATASTORE = "sqlite"
-```
+8. Copy the file `wsgi/nginx-config/nginx.conf` ro `/etc/nginx/nginx.conf`
+9. Restart Nginx `sudo service nginx restart`
+10. Cop the config file `configs/endpoint-sqlite.cfg` under `/home/endpoint/endpoint/endpoint` and declare values there to override values in the default config.
+11. Chown the repo so that the user `www-data` can read and write to it: `chown -R www-data:www-data /home/endpoint/endpoint`
+12. Change the variable `server_name your.hostname.com` to whatever hostname you want the server to run on.
+13. Create a symlink to activate the configuration `ln -s /etc/nginx/sites-available/endpoint-site /etc/nginx/sites-enabled/endpoint-site`
+14. Start the endpoint service `sudo service endpoint start` (you may need to do `sudo systemctl start endpoint.service`)
+15. Reload the Nginx config `sudo service nginx reload`
