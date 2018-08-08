@@ -1,16 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
+const uuidv4 = require('uuid/v4');
 
 
-var slug = "test";
-
-window.setSlug = function(slugValue) {
-  slug = slugValue;
-}
-
-window.getSlug = function() {
-  return slug;
-};
+const visitorSlug = uuidv4();
 
 class VideoBox extends React.Component {
 
@@ -188,7 +181,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-      <div>The slug is: {getSlug()}</div>
+      <div>The slug is: {visitorSlug}</div>
         <div id="geolocation">
           <h1>Where are you?</h1>
           <div id="mapIt">
