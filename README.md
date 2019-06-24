@@ -1,7 +1,8 @@
 # Endpoint
 
+[![Build Status](https://travis-ci.org/ilmarinen/endpoint.svg?branch=master)](https://travis-ci.org/ilmarinen/endpoint)
 
-## Installaation
+## Installation
 
 `python3 -m venv venv`
 
