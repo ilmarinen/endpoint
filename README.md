@@ -1,70 +1,37 @@
 # Endpoint
-## About
-Endpoint is a barebones web server with a few dynamic templated pages and RESTful routes. It has basic user / group permissions implemented, and a token system for securely providing an endpoint for remote services to call. This is a very extensibe project which is also easily deployable.
 
-## Introduction
 
-### Installation
-```
-pip install -r requirements.txt
-python setup.py develop
-```
+## Installaation
 
-### Initialize Database
-```
-python manage.py init-db
-alembic upgrade head
-```
-#### Create Users
-```
-python manage.py add-user --username admin --password 1234
-python manage.py add-user --username joe --password 1234
-```
+`python3 -m venv venv`
 
-#### Create Groups
-```
-python manage.py add-group --groupname admin
-python manage.py add-group --groupname users
-```
+Then activate your virtual environment and then do.
 
-#### Add Users to Groups
-```
-python manage.py add-group-member --groupname admin --membername admin
-python manage.py add-group-member --groupname users --membername joe
-```
+`npm install`
+`pip install -r requirements.txt`
+`python setup.py develop`
 
-### Run the Development Server
-```
-python manage.py dev-server
-```
+## Initialize Database
 
-Then point your browser to port 8000 on the machine where the server is running.
+`FLASK_APP=endpoint.py flask db init`
+`FLASK_APP=endpoint.py flask db migrate -m "Create all tables etc."`
 
-## Architecture
+## Run Server
 
-Endpoint is built atop Flask, which is a webserver (Werkzeug) together with various session management, middleware and other convenience helpers, that make writing a web back-end relatively easy. There are also a lot of Flask modulews out there which allow you to add functionality such as login / logout and session management logic (Flask-Login), as well as an administrative CRUD interface (Flask-Admin). What I like about Flask is that it is very lightweight, does not dictate project structure, and does not populate your project with auto-generated code.
+`GITHUB_CLIENT_ID='<github-oauth-client-id>' GITHUB_CLIENT_SECRET='<github-oauth-client-secret>' GOOGLE_CLIENT_ID='<google-oauth-client-id>' GOOGLE_CLIENT_SECRET='<google-oauth-client-secret>'  HOSTNAME=<hostname:port> SENDGRID_API_KEY=<sendgrid-api-key> ADMIN=<admin-email> FLASK_APP=endpoint.py flask run -h 0.0.0.0 -p 5000`
 
-The Endpoint project itself is composed of a set of data models implemented in SqlAlchemy, together with a set of packages that interface with the data models and implement some internal business logic. Each package implements its own views and routes. The views and routes are mapped to handlers which handle web requests and interface them with the business logic within the package and the data models.
+Add an entry to your `/etc/hosts` file pointing the hostname to the host ip address.
 
-[Alembic](http://alembic.zzzcomputing.com/en/latest/index.html) is used for managing database migrations. It works well with SqlAlchemy and is able to auto-generate migrations based on your SqlAlchemy models most of the time. The command to auto-generate a migration goes like:
+Then point your browser to http://<hostname>:5000
 
-```
-$ alembic revision --autogenerate -m "Added account table"
-INFO [alembic.context] Detected added table 'account'
-Generating /path/to/foo/alembic/versions/27c6a30d7c24.py...done
-```
+## Flask Shell
 
-It can then be used to upgrade to the latest migration by:
+`FLASK_APP=endpoint.py flask shell`
 
-```
-$ alembic upgrade head
-```
+## Development workflow - Migrations
 
-It can be used to downgrade by:
-
-```
-$ alembic downgrade -1
-```
+1. `FLASK_APP=endpoint.py flask db migrate -m "<description-of-migration>"`
+2. `FLASK_APP=endpoint.py flask db upgrade`
 
 ## Deployment
 
@@ -73,7 +40,7 @@ The tightest way to deploy this is as a WSGI application with NGINX proxying the
 1. Create a user `endpoint` with home folder `/home/endpoint`
 2. Clone the repo into `/home/endpoint/endpoint`
 3. Create a virtual environment. In `/home/endpoint` run `virtualenv -p /usr/bin/python2 vendpoint`
-4. With the virtual environment activated, instaqll all the requirements and run step.py to install endpoint.
+4. With the virtual environment activated, install all the requirements and run step.py to install endpoint.
 5. Initialize the database and setup the admin user and groups. Setup any additional users and groups you may need.
 6. Copy the file `wsgi/systemd-unit/endpoint.service` to `/etc/systemd/system/endpoint.service`
 7. Copy the file `wsgi/nginx-config/endpoint-site` to `/etc/nginx/sites-available/endpoint-site`

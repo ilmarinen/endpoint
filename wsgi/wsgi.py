@@ -1,7 +1,5 @@
-from endpoint import app, init
+from endpoint import app
 
-
-init()
 
 if __name__ == "__main__":
     app.run()

@@ -27,7 +27,6 @@ def expose_static_files(app):
 
     @app.route('/public/<path:path>')
     def send_static_files(path):
-        print path
         try:
             return send_from_directory(base_folder, path)
         except:
@@ -40,7 +39,7 @@ def no_cache(f):
         response = make_response(f(*args, **kwargs))
         response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
         response.headers['Pragma'] = 'no-cache'
-        response.headers['Expires'] = '0'
+        response.headers['Expires'] = '-1'
         return response
 
     return decorated_function
@@ -73,7 +72,7 @@ class BaseView(View):
 
 class RESTView(MethodView):
     def make_response(self, result):
-        if request.method == 'POST' and request.headers.get('Content-Type') != 'application/json':
+        if request.method == 'POST' and request.headers.get('Content-Type').upper() not in ['application/json'.upper(), 'application/json;charset=utf-8'.upper()]:
             raise APIException(400, 'Bad request')
         else:
             response = make_response(json.dumps(result))
