@@ -5,6 +5,8 @@
 ## Installation
 
 1. `python3 -m venv venv`
+2. `uwsgi` Version 2.0.12
+3. `uwsgi-plugin-python3`
 
 Then activate your virtual environment and then do.
 
