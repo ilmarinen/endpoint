@@ -28,3 +28,6 @@ package-lock.json
 .fuse*
 
 uploads/
+
+deployment/endpoint-site
+deployment/endpoint.service

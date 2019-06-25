@@ -3,7 +3,7 @@ Description=uWSGI instance to serve endpoint app
 
 [Service]
 ExecStartPre=-/bin/bash -c 'mkdir -p /run/uwsgi; chown www-data:www-data /run/uwsgi'
-ExecStart=/bin/bash -c 'cd /home/endpoint/endpoint/wsgi; source /home/endpoint/vendpoint/bin/activate; uwsgi --ini endpoint.ini'
+ExecStart=/bin/bash -c 'cd {{ endpoint_root }}; uwsgi --ini endpoint.ini -H {{ endpoint_root }}/venv'
 
 [Install]
 WantedBy=multi-user.target

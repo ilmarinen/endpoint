@@ -1,5 +1,6 @@
 import os
 import click
+import jinja2
 from datetime import datetime
 from flask import Flask, request, send_from_directory, render_template
 from flask_migrate import Migrate
@@ -101,3 +102,35 @@ def gen_fixtures():
 @app.cli.command("generate-fixtures")
 def generate_fixtures():
     gen_fixtures()
+
+
+@app.cli.command("generate-deployment-configs")
+@click.option("--host", "-h")
+@click.option("--application-root", "-r")
+def generate_deployment_configs(host, application_root):
+    template_loader = jinja2.FileSystemLoader(searchpath=".")
+    template_env = jinja2.Environment(loader=template_loader)
+    nginx_site_template_file = "../deployment/nginx-config/endpoint-site"
+    systemd_unit_template_file = "../deployment/systemd-unit/endpoint.service"
+    with open("./deployment/nginx-config/endpoint-site", "r") as nginx_site_template_file:
+        nginx_site_template = jinja2.Template(nginx_site_template_file.read())
+    nginx_site_text = nginx_site_template.render(host_name=host, endpoint_root=application_root)
+
+    with open("./deployment/systemd-unit/endpoint.service", "r") as systemd_unit_template_file:
+        systemd_unit_template = jinja2.Template(systemd_unit_template_file.read())
+    systemd_unit_text = systemd_unit_template.render(endpoint_root=application_root)
+
+    with open("./deployment/endpoint-site", "w") as nginx_site_file:
+        nginx_site_file.write(nginx_site_text)
+
+    with open("./deployment/endpoint.service", "w") as systemd_unit_file:
+        systemd_unit_file.write(systemd_unit_text)
+
+    print("Created the Nginx site config: endpoint-site")
+    print("Created the Systemd unit: endpoint.service")
+    print("Both files were saved under the deployment folder.")
+    print("Copy the endpoint-site file to /etc/nginx/sites-available/")
+    print("Create a symlink to it under /etc/nginx/sites-enabled/")
+    print("Copy the endpoint.service file to /etc/systemd/system/")
+    print("Start the endpoint service with: sudo service endpoint start")
+
