@@ -100,8 +100,8 @@ def gen_fixtures():
         db.session.add(admins_membership)
         db.session.commit()
 
-    user_a = api.create_user("heisenberg", "Werner", "Heisenberg", "h@test.com", restaurant_owner=False, is_active=True, password="test")
-    user_b = api.create_user("max", "Max", "Planck", "m@test.com", restaurant_owner=True, is_active=True, password="test")
+    user_a = api.create_user("jack", "Jack", "EinstSpratein", "t@test.com", restaurant_owner=False, is_active=True, password="test")
+    user_b = api.create_user("john", "John", "Doe", "j@test.com", restaurant_owner=True, is_active=True, password="test")
     db.session.add(user_a)
     db.session.add(user_b)
     db.session.commit()
