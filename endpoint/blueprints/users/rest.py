@@ -157,7 +157,7 @@ class InviteAPI(RESTView):
         request_data = request.get_json()
         if "email" not in request_data:
             raise APIException(403, "Email required")
-        token = api.invite_via_email(request_data.get("email"))
+        token = api.invite_via_email(current_user, request_data.get("email"))
         print("Invite: ", token)
         return True
 

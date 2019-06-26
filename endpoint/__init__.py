@@ -79,6 +79,8 @@ def user_signup():
 
 
 def gen_fixtures():
+    from endpoint.models import api
+
     owners_groups = models.Group.query.filter_by(groupname="restaurant_owners")
     admin_groups = models.Group.query.filter_by(groupname="admins")
     if owners_groups.count() == 0:
@@ -98,6 +100,12 @@ def gen_fixtures():
         db.session.add(admins_membership)
         db.session.commit()
 
+    user_a = api.create_user("heisenberg", "Werner", "Heisenberg", "h@test.com", restaurant_owner=False, is_active=True, password="test")
+    user_b = api.create_user("max", "Max", "Planck", "m@test.com", restaurant_owner=True, is_active=True, password="test")
+    db.session.add(user_a)
+    db.session.add(user_b)
+    db.session.commit()
+
 
 @app.cli.command("generate-fixtures")
 def generate_fixtures():
@@ -107,9 +115,8 @@ def generate_fixtures():
 @app.cli.command("generate-deployment-configs")
 @click.option("--host", "-h")
 @click.option("--application-root", "-r")
-def generate_deployment_configs(host, application_root):
-    template_loader = jinja2.FileSystemLoader(searchpath=".")
-    template_env = jinja2.Environment(loader=template_loader)
+@click.option("--docker", "-d", is_flag=True)
+def generate_deployment_configs(host, application_root, docker):
     nginx_site_template_file = "../deployment/nginx-config/endpoint-site"
     systemd_unit_template_file = "../deployment/systemd-unit/endpoint.service"
     with open("./deployment/nginx-config/endpoint-site", "r") as nginx_site_template_file:
@@ -120,11 +127,18 @@ def generate_deployment_configs(host, application_root):
         systemd_unit_template = jinja2.Template(systemd_unit_template_file.read())
     systemd_unit_text = systemd_unit_template.render(endpoint_root=application_root)
 
+    with open("./deployment/uwsgi-config/endpoint.ini", "r") as endpoint_ini_template_file:
+        endpoint_ini_template = jinja2.Template(endpoint_ini_template_file.read())
+    endpoint_ini_text = endpoint_ini_template.render(docker=docker)
+
     with open("./deployment/endpoint-site", "w") as nginx_site_file:
         nginx_site_file.write(nginx_site_text)
 
     with open("./deployment/endpoint.service", "w") as systemd_unit_file:
         systemd_unit_file.write(systemd_unit_text)
+
+    with open("./deployment/endpoint.ini", "w") as endpoint_ini_file:
+        endpoint_ini_file.write(endpoint_ini_text)
 
     print("Created the Nginx site config: endpoint-site")
     print("Created the Systemd unit: endpoint.service")
@@ -133,4 +147,3 @@ def generate_deployment_configs(host, application_root):
     print("Create a symlink to it under /etc/nginx/sites-enabled/")
     print("Copy the endpoint.service file to /etc/systemd/system/")
     print("Start the endpoint service with: sudo service endpoint start")
-

@@ -103,7 +103,7 @@ def claim_invite(token):
     signer = Signer(app.config.get("SECRET_KEY"))
     data = base64.b64decode(signer.unsign(token.encode("utf-8")).decode()).decode()
     email, expiry_string = data.split(",")
-    if check_email_in_use(email):
+    if check_email_exists(email):
         raise Exception("Email in use")
     expiry = datetime.strptime(expiry_string, "%Y-%m-%d-%H-%M-%S")
     if datetime.now() > expiry:
@@ -111,8 +111,8 @@ def claim_invite(token):
     return True
 
 
-def invite_via_email(email):
-    if check_email_in_use(email):
+def invite_via_email(user, email):
+    if check_email_exists(email):
         raise APIException(500, "Email in use")
 
     expiry = datetime.now() + timedelta(days=app.config.get("CLAIM_EXPIRY_IN_DAYS"))

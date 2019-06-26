@@ -31,3 +31,5 @@ uploads/
 
 deployment/endpoint-site
 deployment/endpoint.service
+
+./endpoint.ini
