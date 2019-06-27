@@ -62,8 +62,6 @@ The tightest way to deploy this is as a WSGI application with NGINX proxying the
 2. `npm install webpack`
 3. `npx webpack`
 4. `docker build -t <image-name> .`
-5. `docker run -d -p 80:80 <image-name>`
+5. `docker run -d -p 5000:5000 <image-name>`
 6. At this point `docker ps` should show you the running container.
-7. An issue requires Nginx to be re-started so do `docker exec -it <container-name> bash` which should open a shell in the container.
-8. From the shell in the container do `services nginx start`
-9. And then point your browser to `http://localhost` and you should see the app.
+7. And then point your browser to `http://localhost:5000` and you should see the app.
