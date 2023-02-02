@@ -11,7 +11,7 @@ MarkupSafe==1.1.1
 passlib==1.7.1
 pytest==4.6.3
 sendgrid==6.0.5
-Werkzeug==0.15.4
+Werkzeug==0.15.5
 WTForms==2.2.1
 google-api-python-client
 google-auth
